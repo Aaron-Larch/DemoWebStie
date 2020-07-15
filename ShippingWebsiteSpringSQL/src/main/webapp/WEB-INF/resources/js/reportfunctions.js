@@ -76,18 +76,22 @@ function loadChannel(cl1, cl2, cl3, cl4, flag){
 		[].forEach.call(document.querySelectorAll(cl1), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl2), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl3), function (i) {i.style.display="none";});
+		[].forEach.call(document.querySelectorAll(cl4), function (i) {i.style.display="block";});
 	}else if(flag=="Step2"){
 		[].forEach.call(document.querySelectorAll(cl4), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl2), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl3), function (i) {i.style.display="none";});
+		[].forEach.call(document.querySelectorAll(cl1), function (i) {i.style.display="block";});
 	}else if(flag=="Step3"){
 		[].forEach.call(document.querySelectorAll(cl4), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl1), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl2), function (i) {i.style.display="none";});
+		[].forEach.call(document.querySelectorAll(cl3), function (i) {i.style.display="block";});
 	}else{
 		[].forEach.call(document.querySelectorAll(cl4), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl1), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl3), function (i) {i.style.display="none";});
+		[].forEach.call(document.querySelectorAll(cl2), function (i) {i.style.display="block";});
 	}
 }
 
@@ -196,26 +200,56 @@ function buildReport(
 		});
 		chart.render();
 }
+function chartslide(data){
+	$(document).ready(function(){renderChart(data);});
+	var canvas = document.querySelector('canvas');
+	fitToContainer(canvas);
 
-function renderChart(input) {
-	/*Chart program layouts as found on https://www.chartjs.org/samples/latest/*/
-	var chart = new Chart("chartContainer", { 
-		  type: 'line',
-			  data: {
-			    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
-			    datasets: [{ 
-			        data: input,
-			        label: 'My first dataset',
-			        borderColor: "#3e95cd",
-			        fill: false
-			     }]
-			  },
-			  options: {
-			    title: {
-			      display: true,
-			      text: 'This site can also track Large volumes of data over time and place them into graphs using CharJS software'
-	                    }
-	                }
+	function renderChart(input) {
+		/*Chart program layouts as found on https://www.chartjs.org/samples/latest/*/
+		var chart = new Chart("chartContainer", { 
+			type: 'line',
+				data: {
+					labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+					datasets: [{ 
+						data: input,
+						label: 'My first dataset',
+						borderColor: "#3e95cd",
+						fill: false
+					}]
+				},
+				options: {
+					title: {
+						display: true,
+						text: 'This site can also track Large volumes of data over time and place them into graphs using CharJS software'
+					}
+				}
 			});
-	chart.render();
+		chart.render();
+	}
+	
+	function fitToContainer(canvas){
+		// Make it visually fill the positioned parent
+		canvas.style.width ='100%';
+		canvas.style.height='100%';
+		// ...then set the internal size to match
+		canvas.width  = canvas.offsetWidth;
+		canvas.height = canvas.offsetHeight;
+	}
+}
+function AnimateSlide(){
+	var Index = 0;
+	carousel();
+
+	function carousel() {
+		var i;
+		var x = document.getElementsByClassName("ProductSlides");
+		for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+		}
+		Index++;
+		if (Index > x.length) {Index = 1}    
+		x[Index-1].style.display = "block";  
+		setTimeout(carousel, 4000); // Change image every 4 seconds
+	}
 }

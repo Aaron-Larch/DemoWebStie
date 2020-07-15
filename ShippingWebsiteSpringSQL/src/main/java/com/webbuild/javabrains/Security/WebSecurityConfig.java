@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests() //Set website available to the user at login
                 .antMatchers("/resources/**", "/registration", "/HomePage", "/TestPage", "/Account/user/**").permitAll()
-                .antMatchers("/ImageAssets/**", "FixedAssets/**").permitAll()
+                .antMatchers("/ImageAssets/**", "/FixedAssets/**").permitAll()
                 .antMatchers("/welcome", "/Sipping/SingleObject", "/Sipping/SingleObject/**", "Sipping/addneworder", 
                 		"Sipping/addneworder/**", "Sipping/tableUpdate", "Sipping/tableUpdate/**", "Sipping/SpainDelete/").authenticated()
                 .antMatchers("/Sipping/America").hasRole("America")

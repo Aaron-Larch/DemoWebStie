@@ -28,6 +28,12 @@
 .ProductSlides{
 	width: 1100px;
 	object-fit: cover;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	transition: all 1s;
+	border-radius: 2px;
+	
   }
 .SlideText {
 	position: absolute;
@@ -43,10 +49,7 @@
 #pic{width: 100%;}
 
 .ProductSlides.shifting {
-    right: 0;
 	transition: right .2s ease-out;
-    opacity:1;
-	
 }
 
 .sidenav {
@@ -88,57 +91,85 @@
   .sidenav a {font-size: 18px;}
 }
 
+.clear { clear:both; }
 #CenterLine{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
 }
-
+#SubImage{
+	position: relative;
+    margin-left: auto;
+    margin-right: auto; 
+    width: 80%;
+}
 </style>
 </head>
 <body>
-    <h2 class="hello-title">Welcome to the JBA Food Shipping service How may we serve you today</h2>
-    <p>Insert into here a fancy page to sell the compony and what it dose</p>
+    <h2>Insert into here a fancy page to sell the compony and what it dose</h2>
     <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
+  <a onclick="switchStateBtn('Step1')" href="javascript:void(0)">About</a>
+  <a onclick="switchStateBtn('Step2')" href="javascript:void(0)">Services</a>
+  <a onclick="switchStateBtn('Step3')" href="javascript:void(0)">Clients</a>
   <a href="#">Contact</a>
   <spring:url value="${contextPath}/login" var="StartURL" />
   <a id="LoadFile" href="${StartURL }" >Login</a>.
 </div>
-<span style="font-size:30px; cursor:pointer;" onclick="openNav()">&#9776; open</span>
-    
-    
-    <div id="Placeholder">${test}</div>
-    <div id="slider" class="Site_Features_List">
-		<c:forEach var="img" items="${imageUrlList}">  
-			<div id="silde" class="ProductSlides">
-				<img id="pic" src="${contextPath}/ImageAssets/${img}" alt="MissingImg" width="800" height="400"/>
-				<p class="SlideText"><span>${fn:substringBefore(img, ".")}</span></p>
-			</div>
-		</c:forEach>
-		<canvas class="ProductSlides" id="chartContainer"></canvas>
+	
+	<span style="font-size:30px; cursor:pointer;" onclick="openNav()">&#9776; Welcome to the JBA Food Shipping & Tracking</span>
+	
+	<div id="Placeholder" class="slideshow">${test}
+		<div id="slider" class="Site_Features_List">
+			<c:forEach var="img" items="${imageUrlList}">  
+				<div id="silde" class="ProductSlides">
+					<img id="pic" src="${contextPath}/ImageAssets/${img}" alt="MissingImg" width="800" height="400"/>
+					<p class="SlideText"><span>${fn:substringBefore(img, ".")}</span></p>
+				</div>
+			</c:forEach>
+			<canvas class="ProductSlides" id="chartContainer"></canvas>
+		</div>
 	</div>
 	
 	<div Class="AboutSite">
-	<img id="CenterLine" src="${contextPath}/FixedAssets/ComponyLogo.png" alt="Logo" width="400" height="200"/>
-	<br>
-	<br>
-	<img id="CenterLine" src="${contextPath}/FixedAssets/AaronLarch.jpg" alt="Founder" width="800" height="400"/>
-	<p>This is our Co-founder and CEO. Aaron Larch Is a GCE Trainee built this website from scratch and designed All of
-	the features, testing, displays, and added a exsternal database with the help from co founder.
-	This project started in march 2019 and went through several interations and redesigns as features were added and the sight exspanded.
-	Click Here to see what the sight has to offer.</p>
-	<br>
-	<div style="float: center;">
-	<h2>this is our co-founder and guy who built 2 web pages</h2>
-	<img id="Cofounder" src="${contextPath}/FixedAssets/BrianRodewald.jpg" style="float: left;" alt="Co-Founder" width="800" height="400"/>
-	<p>Desinged Some the chart tables for anilitic display page and added some style changes to the report page</p>
-	</div>
-	To contact us for an interview please call us at 111-222-3333 or go to a place that dose not exist
+		<img id="CenterLine" src="${contextPath}/FixedAssets/ComponyLogo.png" alt="Logo" width="300" height="200"/>
+		<br><br>
+		<img id="CenterLine" src="${contextPath}/FixedAssets/AaronLarch.jpg" alt="Founder" width="800" height="900"/>
+		<p style="text-align:center;">This is our Co-founder and CEO. Aaron Larch Is a GCE Trainee built this website from scratch and designed
+		 All of the features, testing, and Page displays<br>
+		He then added an exsternal email server, added an exsternal SQL database, made a data tracker and analyser, 
+		and with the help from his co founder Built a Reports page.<br>
+		Click Here to see what the sight has to offer:</p>
+		<br>
+		insert button here.
+		<br><br>
+		<div id="SubImage">
+			<img id="Cofounder" src="${contextPath}/FixedAssets/BrianRodewald1.jpg" 
+				style="float: left; margin-right: 15px;" alt="Co-Founder" width="350" height="450"/>
+			<h2><br><br>
+			This is our Sites co-founder</h2>
+			<p style="text-align:center;"> Co-founder Brian built 2 web pages for this sight. He 
+			Desinged part of the logic behind the Graphing software as well as cleaned up chart data generating subrutines.
+			He also created the basic layouts for the table display page where the reports are displayed</p>
+		</div>
+		<div class="clear"></div><br><br><br>
+		<div id="SubImage">
+			<img id="Add" src="${contextPath}/FixedAssets/ShopingInterface.PNG" 
+				style="float: right; margin-left: 15px;" alt="SamplePage" width="650" height="325"/>
+			<p style="text-align:Center;"><br>
+			This project started in march 2019 and went through several 
+			interations and redesigns as features were added and the sight exspanded to include more content and features. Throghout the
+			evolution of this project many chalenges were overcome giving way to new code techniques and improving user security and interface.
+			With each challenge the code improved in quility not just for the curent product but for futuer changes as well<br>
+			Added Features include: <br>
+			implamenting password tokens<br>
+			conversion from JerseyAP to spring boot<br>
+			outomated Creation of a Large number data generator<br>
+			a .Zip conversion/compression system<br>
+			Blob Data storage of java objects<br>
+		</div>
+		<div class="clear"></div><br><br>
+		<p  style="text-align:Center;">To contact us for an interview please call us at 111-222-3333 or go to a place that dose not exist</p>
 	</div>
 	
 		<spring:url value="/TestPage" var="invoice" />
@@ -256,46 +287,33 @@
   </div>
   <script>
   <%@include file="../resources/js/SystemClock.js"%>
-	$(document).ready(function(){
-		renderChart(${Arrays.toString(Data)});
-	});
-	
-	var myIndex = 0;
-	
-	carousel();
-
-	
-	function carousel() {
-	  var i;
-	  var x = document.getElementsByClassName("ProductSlides");
-	  for (i = 0; i < x.length; i++) {
-	    x[i].style.display = "none";  
-	  }
-	  myIndex++;
-	  if (myIndex > x.length) {myIndex = 1}    
-	  x[myIndex-1].style.display = "block";  
-	  setTimeout(carousel, 4000); // Change image every 4 seconds
-	}
-	
-	var canvas = document.querySelector('canvas');
-	fitToContainer(canvas);
-
-	function fitToContainer(canvas){
-	  // Make it visually fill the positioned parent
-	  canvas.style.width ='100%';
-	  canvas.style.height='100%';
-	  // ...then set the internal size to match
-	  canvas.width  = canvas.offsetWidth;
-	  canvas.height = canvas.offsetHeight;
-	}
+	chartslide(${Arrays.toString(Data)});
+	AnimateSlide();
 	
 	function openNav() {
-		  document.getElementById("mySidenav").style.width = "250px";
-		}
+		document.getElementById("mySidenav").style.width = "250px";
+	}
 
-		function closeNav() {
-		  document.getElementById("mySidenav").style.width = "0";
+	function closeNav() {
+		document.getElementById("mySidenav").style.width = "0";
+	}
+		
+	function switchStateBtn(input){
+		closeNav()
+		if(input=="Step1"){
+			[].forEach.call(document.querySelectorAll(".page"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".slideshow"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".AboutSite"), function (i) {i.style.display="block";});
+		}else if(input=="Step2"){
+			[].forEach.call(document.querySelectorAll(".page"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".AboutSite"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".slideshow"), function (i) {i.style.display="block";});
+		}else if(input=="Step3"){
+			[].forEach.call(document.querySelectorAll(".slideshow"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".AboutSite"), function (i) {i.style.display="none";});
+			[].forEach.call(document.querySelectorAll(".page"), function (i) {i.style.display="block";});
 		}
+	}
   </script>
   
 </body>
