@@ -1,4 +1,5 @@
 package com.webbuild.javabrains.Security;
+
 import ch.qos.logback.classic.PatternLayout;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.CoreConstants;
@@ -8,6 +9,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import org.junit.platform.commons.util.StringUtils;
 
 /**
  * Logback appender to mask a given pattern with a mask value.
@@ -66,13 +69,11 @@ public class MaskingPatternLayout extends PatternLayout {
         }
         defaultParsedEvent = writeLoopOnConverters(event);
 
-        if(patternsProperty != null && mask != null){ 
-        	return Stream.of(defaultParsedEvent.split("\\s+"))
+        return (!StringUtils.isBlank(patternsProperty) && !StringUtils.isBlank(mask)) ?
+                Stream.of(defaultParsedEvent.split("\\s+"))
                         .map(this::maskMessage)
-                        .collect(Collectors.joining(" ")).concat(CoreConstants.LINE_SEPARATOR);
-        }else {
-        	return event.getMessage().concat(CoreConstants.LINE_SEPARATOR);
-        }
+                        .collect(Collectors.joining(" ")).concat(CoreConstants.LINE_SEPARATOR)
+                : event.getMessage().concat(CoreConstants.LINE_SEPARATOR);
     }
 
     /**

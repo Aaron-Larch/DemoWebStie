@@ -94,11 +94,15 @@
 <section>
 	<!-- Button for adding a new row  -->
   <spring:url value="/Shipping/addneworder" var="addURL" />
-  <a class="btn btn-primary" href="${addURL }" role="button" >Add New Article</a>
+  <a class="btn btn-primary" href="${addURL }" role="button" >Place An Order</a>
   
   <!-- button to launch Create reports modal  -->
   <div id="modal-isi-body"></div>
   <button  style="display: ${role};" type="button" class="btn btn-primary" onclick="loadModal('page1')">Create Report</button>
+  
+   <!-- button to launch the stored reports table -->
+  <spring:url value="/Stats/closerecords" var="Table" />
+  <li style="display: ${role};"><a class="btn btn-primary" href="${Table }" role="button" >View Saved Reports</a></li>
   </section>
   </aside>
  </div>

@@ -29,13 +29,13 @@ public class systemTest {
 			//inputPath.add("C:/Users/gce/Desktop/Project summory version 2..docx");
 			
 			ArrayList<String> ccEmail=new ArrayList<String>();
-			//ccEmail.add("sal.horquita@gce.org");
-			//ccEmail.add("a.larch@yahoo.com");
+			//ccEmail.add("*****************");
+			//ccEmail.add("*****************");
 			
 			EmailEngine.send(
 					"smtp.office.com",
-					"a.larch@yahoo.com",
-					"aaron.larch@gce.org",
+					"*****************",
+					"*****************",
 					ccEmail,
 					false,
 					"My War Report",

@@ -134,7 +134,7 @@ public class EmailEngine {
 		Authenticator auth = new Authenticator() {
 			//override the getPasswordAuthentication method
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(from, "GC3W!ning!");
+				return new PasswordAuthentication(from, "*******");
 			}
 		};
 		

@@ -10,7 +10,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>JBA Shipping inc.</title>
 	<script><%@include file="../resources/js/reportfunctions.js"%></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href=" https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
@@ -25,7 +25,7 @@
   border: 1px solid black;
   position: relative;
   }
-.ProductSlides{
+.myslides, .ProductSlides{
 	width: 1100px;
 	object-fit: cover;
 	display: flex;
@@ -103,6 +103,34 @@
     margin-right: auto; 
     width: 80%;
 }
+
+.mySlides {display:none}
+ .badge {
+     border-radius: 0;
+     font-size: 12px;
+     line-height: 1;
+     padding: .375rem .5625rem;
+     font-weight: normal;
+ }
+
+ .badge.badge-pill {
+     border-radius: 10rem;
+     background-color: transparent;
+ }
+
+ .badge.badge-outline-info {
+     color: #A9A9A9;
+     border: 1px solid #A9A9A9
+ }
+ 
+ .badge:hover{
+ 	cursor:pointer;
+ 	background-color: #A9A9A9;
+ }
+.badge.dotfill{ background-color: #A9A9A9;}
+ 
+ 
+
 </style>
 </head>
 <body>
@@ -111,7 +139,7 @@
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <a onclick="switchStateBtn('Step1')" href="javascript:void(0)">About</a>
   <a onclick="switchStateBtn('Step2')" href="javascript:void(0)">Services</a>
-  <a onclick="switchStateBtn('Step3')" href="javascript:void(0)">Clients</a>
+  <a onclick="switchStateBtn('Step3')" href="javascript:void(0)">Partners</a>
   <a href="#">Contact</a>
   <spring:url value="${contextPath}/login" var="StartURL" />
   <a id="LoadFile" href="${StartURL }" >Login</a>.
@@ -130,6 +158,24 @@
 			<canvas class="ProductSlides" id="chartContainer"></canvas>
 		</div>
 	</div>
+	
+	<div id="Placeholder" class="services">
+		<div id="slider" class="Site_Features_List">
+			<c:forEach var="img" items="${imageUrlList}">  
+				<div id="silde" class="myslides">
+					<img id="pic" src="${contextPath}/ImageAssets/${img}" alt="MissingImg" width="800" height="400"/>
+					<p class="SlideText"><span>${fn:substringBefore(img, ".")}</span></p>
+				</div>
+			</c:forEach>
+			<canvas class="myslides" id="chartContainer"></canvas>
+		</div>
+	</div>
+	
+						<div style="width:100%">
+			<c:forEach begin="1" end="${imageUrlList.size()+1}" varStatus="count">
+			<span class="badge demo badge-pill badge-outline-info" onclick="currentDiv(${count.index})">  </span> 
+			</c:forEach>
+			</div>
 	
 	<div Class="AboutSite">
 		<img id="CenterLine" src="${contextPath}/FixedAssets/ComponyLogo.png" alt="Logo" width="300" height="200"/>
@@ -290,6 +336,24 @@
 	chartslide(${Arrays.toString(Data)});
 	AnimateSlide();
 	
+	
+	function cloneCanvas(oldCanvas) {
+
+	    //create a new canvas
+	    var newCanvas = document.createElement('canvas');
+	    var context = newCanvas.getContext('2d');
+
+	    //set dimensions
+	    newCanvas.width = oldCanvas.width;
+	    newCanvas.height = oldCanvas.height;
+
+	    //apply the old canvas to the new one
+	    context.drawImage(oldCanvas, 0, 0);
+
+	    //return the new canvas
+	    return newCanvas;
+	}
+	
 	function openNav() {
 		document.getElementById("mySidenav").style.width = "250px";
 	}
@@ -313,6 +377,33 @@
 			[].forEach.call(document.querySelectorAll(".AboutSite"), function (i) {i.style.display="none";});
 			[].forEach.call(document.querySelectorAll(".page"), function (i) {i.style.display="block";});
 		}
+	}
+	
+	var slideIndex = 1;
+	showDivs(slideIndex);
+
+	function plusDivs(n) {
+	  showDivs(slideIndex += n);
+	}
+
+	function currentDiv(n) {
+	  showDivs(slideIndex = n);
+	}
+
+	function showDivs(n) {
+	  var i;
+	  var x = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("demo");
+	  if (n > x.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = x.length}
+	  for (i = 0; i < x.length; i++) {
+	    x[i].style.display = "none";  
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	    dots[i].className = dots[i].className.replace(" dotfill", " whitespace");
+	  }
+	  x[slideIndex-1].style.display = "block";  
+	  dots[slideIndex-1].className += " dotFill";
 	}
   </script>
   
