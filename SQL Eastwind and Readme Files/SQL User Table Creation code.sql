@@ -17,10 +17,9 @@ CREATE TABLE PasswordResetToken (
     token varchar(255),
     userid INT,
     expiryDate Timestamp,
+    IsUsed CHAR(1) default 0,
     
     Constraint PK_PasswordResetToken Primary Key (Id),
     CONSTRAINT FK_PasswordResetToken_User FOREIGN KEY (userid) REFERENCES USERS (PersonID)
 );
 CREATE SEQUENCE Token_SEQ START WITH 1;
-ALTER TABLE PasswordResetToken 
-ADD IsUsed Boolean;
