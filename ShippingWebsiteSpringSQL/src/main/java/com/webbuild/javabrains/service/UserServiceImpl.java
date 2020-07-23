@@ -51,15 +51,17 @@ public class UserServiceImpl implements UserService {
     
     //Save data and Release all used resources
     public User saveRecord(User user) {
+    	//check user permissions
     	if(user.getRoleid()==2) {
     		try {
+    			//check to see if there is and object to save
     			if(AnaliticService.getFile()!=null) {
-    				byte[] compressed = Store.compress(Dataprep.SavedData());
-    				user.setTestcolum(compressed);
-    				userRepository.save(user);
+    				byte[] compressed = Store.compress(Dataprep.SavedData());//change java object to a .zip file
+    				user.setTestcolum(compressed);//set file to user object
+    				userRepository.save(user); //save user object
     			}
     		} catch (IOException e) {e.printStackTrace();}
-        	Dataprep.releaseresources();
+        	Dataprep.releaseresources();//reset counters
     	}
     	//reset all stored variables for security and resource management
     	SpainShippingController.ResetValues();
@@ -68,11 +70,12 @@ public class UserServiceImpl implements UserService {
     
     //Load a saved object from the SQL table
     public void LoadRecord(User user) {
+    	//check to see if there is a blob object on the database
     	if(user.getTestcolum() != null) {
-    		byte[] compressed=user.getTestcolum();
+    		byte[] compressed=user.getTestcolum();//get blob compressed object
 			try {
-				String decomp = Store.decompress(compressed);
-				Dataprep.LoadSavedData(decomp);
+				String decomp = Store.decompress(compressed);//convert .zip to java
+				Dataprep.LoadSavedData(decomp);//set counters to appropriate values
 			} catch (IOException e) {e.printStackTrace();}		
     	}
     }
@@ -83,11 +86,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
     
+  //SELCET * FROM Roles
     @Override
     public List<Role> GetRolls(){
     	return roleRepository.findAll();
     }
     
+	//SELCET * FROM USER
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
@@ -99,17 +104,19 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(Email);
     }
     
+    //generate token security information and Store token in Database
     @Override
     public void createPasswordResetTokenForUser(User user, String token) {
     	PasswordResetToken myToken = new PasswordResetToken(token, user);
     	passwordTokenRepository.save(myToken);
     }
     
+    //update user password
     public void changeUserPassword(User user, String password) {
-    	User update= userRepository.findByUsername(user.getUsername());
-        update.setUsername(user.getUsername());
-        update.setPassword(bCryptPasswordEncoder.encode(password));
-        userRepository.save(update);
+    	User update= userRepository.findByUsername(user.getUsername());//find user object
+        update.setUsername(user.getUsername());// set username
+        update.setPassword(bCryptPasswordEncoder.encode(password));//encrypt new password
+        userRepository.save(update);//update
         
     }
 }

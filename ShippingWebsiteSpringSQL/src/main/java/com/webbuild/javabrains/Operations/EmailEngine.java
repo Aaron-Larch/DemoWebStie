@@ -222,7 +222,7 @@ public class EmailEngine {
 		mesg.setContent(multipart);
 		Transport.send(mesg);  
 	}
-
+		// all the elements of an email in one method for the user to populate 
 		public static void send(
 				String mailhost, String recipient, String sender, ArrayList<String> cc,
 				Boolean alias, String subject, String message, List<String> inputPath)
@@ -237,16 +237,17 @@ public class EmailEngine {
 			m.setSubject(subject);
 			m.setBody(message);
 			m.doSend(inputPath);
-			newsletter=false;
+			newsletter=false;//create a style sheet for a email
 			}
-
+		
+		//Dynamically create a password recovery message with a web address linking to the password recovery page.
 		public static void constructResetTokenEmail(String contextPath, Locale locale, String token, User user) {
 			try {
-				Resource resource = new ClassPathResource("/validation.properties");
-				Properties props = PropertiesLoaderUtils.loadProperties(resource);
-				String url = contextPath + "/Account/user/changePassword?token=" + token;
-				String message = props.getProperty("message.resetPassword");
-				System.out.println(message + " \r\n" + url);
+				Resource resource = new ClassPathResource("/validation.properties");//create a resource object
+				Properties props = PropertiesLoaderUtils.loadProperties(resource);//load object with the correct properties file
+				String url = contextPath + "/Account/user/changePassword?token=" + token; //Dynamically create custom Url
+				String message = props.getProperty("message.resetPassword");//Generate Email body message from resource object
+				System.out.println(message + " \r\n" + url);//print line for testing purposes 
 				//then send email
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

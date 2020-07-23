@@ -70,21 +70,25 @@ public class SecurityServiceImpl implements SecurityService{
     	return username;
     }
     
+    //find user token
     public PasswordResetToken passToken(String token) {
     	return passwordTokenRepository.findByToken(token);
     }
     
+    //a validation method that checks the token for errors
     public String validatePasswordResetToken(String token) {
         final PasswordResetToken passToken = passToken(token);
         return !isTokenFound(passToken) ? "invalidToken"
                 : isTokenExpired(passToken) ? "expired"
-                : "validToken";
+                : "validToken";//if token is good return flag
     }
-     
+    
+    //check to see if token is real
     private boolean isTokenFound(PasswordResetToken passToken) {
         return passToken != null;
     }
-     
+    
+    //check to see if token has expired
     private boolean isTokenExpired(PasswordResetToken passToken) {
         final Calendar cal = Calendar.getInstance();
         return passToken.getExpiryDate().before(cal.getTime());

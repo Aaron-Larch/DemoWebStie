@@ -8,7 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Random;
+import java.util.*; 
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -22,6 +22,7 @@ public class Store {
 	private static String Input;
 	private static Random rand = new Random();
 	
+	
 	/*A series of methods that emulate the functions or the scanner class in java. using system.in
 	 * the following methods will collect keystrokes made by a user and convert them into one of the 4 primary data types
 	 * Character
@@ -31,6 +32,7 @@ public class Store {
 	 * the methods also auto format number values and ignore any return/enter keystrokes until a keystroke has been saved.
 	 */
 	
+
 	//store user input as a Character and then resetting the buffer to store a new value
 	public char symbol() {
 		try {
@@ -244,5 +246,33 @@ public class Store {
 	//to prevent code trying to decompress a uncompressed("not a zip format") byte[]. to prevent "Not in GZIP format" exception message
 	public static boolean isCompressed(final byte[] compressed) {
 		return (compressed[0] == (byte) (GZIPInputStream.GZIP_MAGIC)) && (compressed[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8));
+	}
+	
+	//############################
+	//Store hard Coded data 
+	//#############################
+	
+	public static List<String> getSeviceDescp() {
+		//list object with picture information for the home page
+		List<String> SeviceDescp=new ArrayList<String>();
+		SeviceDescp.add("These are Drinkabule liquid products that we sell. Some of the products here are:\n"
+				+ "Water, lemonaid, fruit juice, Gatoraid, coconut milk, and Soda");
+		SeviceDescp.add("Condements are sauses and spreads that you can spred on your food.\n"
+				+ "An alternate use for a condement is to use as a dipping souce.");
+		SeviceDescp.add("Confections are small candies, cookies, and treats.\n"
+				+"They are often seved in small portion sizes. You can ushaly fit many of them onto one hand.");
+		SeviceDescp.add("Here at JBA Shipping we also pride ourselves with our wide veriety of softwere offerings.\n"
+				+"Here is a sample picture of just one of our easy to understand user interfaces.");
+		SeviceDescp.add("We have a veriety of milk based prdouts harvested from many different types of mamals.\n"
+				+ "Our top sellers are our wide veriety of creams and cheeses.");
+		SeviceDescp.add("we offer many healthy breakfast options here with a wide veriety of cerials and grains.");
+		SeviceDescp.add("We serve top cuts of meat from a wide veriety of birds and livestock.");
+		SeviceDescp.add("There Many plant based foods, like fruits and vegeatubles, that can be purchased form our store.\n"
+				+"Our produce is shipped around the world and as such we offer many exotic delicacys.");
+		SeviceDescp.add("There is a wide seletion of seafood availibule here. To list a few of our items we have:\n"
+				+"Shefish, Fish, Octupus, Crustations, Kelp, and Molloscks");
+		SeviceDescp.add("We also pride ourselves in our data tracking and Anilitic software. We make all our graphs and reports" 
+				+" with the CartJS graphing software to make profeshinal looking reports that are fun to look at and easy to read.");
+		return SeviceDescp;
 	}
 }

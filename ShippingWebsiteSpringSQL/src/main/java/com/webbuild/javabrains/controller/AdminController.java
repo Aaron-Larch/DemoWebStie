@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.webbuild.javabrains.Operations.OtherEmailTest;
+import com.webbuild.javabrains.Operations.EmailEngine;
 import com.webbuild.javabrains.model.User;
 import com.webbuild.javabrains.repository.UserRepository;
 import com.webbuild.javabrains.service.SecurityService;
@@ -44,56 +44,60 @@ public class AdminController {
     @Autowired //call the validation methods
     private UserValidator userValidator; 
 	
-	Resource resource = new ClassPathResource("/validation.properties");
+	Resource resource = new ClassPathResource("/validation.properties"); //create a global resource object
 	Properties props;
 	
-	
+	//create admin page
 	@RequestMapping(value = { "/ResetPassword"}, method=RequestMethod.POST)
 	public ModelAndView resetPassword(@RequestParam("Email") String UserEmail, HttpServletRequest request){
-		ModelAndView model = new ModelAndView();
+		ModelAndView model = new ModelAndView();// create model web object
 		try {
-			props = PropertiesLoaderUtils.loadProperties(resource);
+			props = PropertiesLoaderUtils.loadProperties(resource);//load object with the correct properties file
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		User user = userservice.findUserByEmail(UserEmail);
+		User user = userservice.findUserByEmail(UserEmail);//get proper user
+		//check for real user
 		if (user != null) {
-			String token = UUID.randomUUID().toString();
-			GenerateToken.createPasswordResetTokenForUser(user, token);
-			String appUrl = "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-			OtherEmailTest.constructResetTokenEmail(appUrl, request.getLocale(), token, user);
-			String test=props.getProperty("message.resetPasswordEmail");
-			model.addObject("message", test);
+			String token = UUID.randomUUID().toString();//generate unique token string
+			GenerateToken.createPasswordResetTokenForUser(user, token);//save token to database
+			String appUrl = "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();//generate URL
+			EmailEngine.constructResetTokenEmail(appUrl, request.getLocale(), token, user);//send information to email generator method
+			String test=props.getProperty("message.resetPasswordEmail");//Confirmation message
+			model.addObject("message", test); //send message to client server
 		}else {
-			model.addObject("message", props.getProperty("message.userNotFound"));
+			model.addObject("message", props.getProperty("message.userNotFound"));// error handling
 	    }
-	    model.addObject("UserTable", userservice.findAll());
-	    return new ModelAndView("redirect:/Shipping/Pacific");
+	    model.addObject("UserTable", userservice.findAll());//get user table for client server
+	    return new ModelAndView("redirect:/Shipping/Pacific");//declare url for page set up
 	}
 	
+	//validate token and populate password reset page
 	@GetMapping("/user/changePassword")
 	public String showChangePasswordPage(RedirectAttributes ra, final Model model, @RequestParam("token") final String token) {
 		try {
-			props = PropertiesLoaderUtils.loadProperties(resource);
-			String result = securityservice.validatePasswordResetToken(token);
+			props = PropertiesLoaderUtils.loadProperties(resource); //load object with the correct properties file
+			String result = securityservice.validatePasswordResetToken(token);//confirm the validity of any given token
+			//check flag value
 			if(result != "validToken") {
-				String message = props.getProperty("auth.message." + result);
+				String message = props.getProperty("auth.message." + result);//set invalid token message
 				ra.addAttribute("attr", message);
-				return "redirect:/login?resettoken";
+				return "redirect:/login?resettoken";//go to url
 			} else {
-				User usr=securityservice.passToken(token).getUser();
-				model.addAttribute("token", token);
-				model.addAttribute("PasswordForm", usr);
-				return "UserInterFace/updatePassword";
+				User usr=securityservice.passToken(token).getUser();//generate user
+				model.addAttribute("token", token); //send token to client
+				model.addAttribute("PasswordForm", usr);//send user info to client
+				return "UserInterFace/updatePassword";//go to url
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "redirect:/login";
+			return "redirect:/login";//error handling
 		}
 	}
 
+	//take information from client server and update database
     @PostMapping("/user/changePassword")
     public String savePassword(@ModelAttribute("PasswordForm") User userForm, BindingResult bindingResult) {
     	userValidator.validateToken(userForm, bindingResult); //Check Object for errors

@@ -200,14 +200,15 @@ function buildReport(
 		});
 		chart.render();
 }
-function chartslide(data){
-	$(document).ready(function(){renderChart(data);});
+//////////////////////////////////////////////////////
+function chartslide(data, ChartId){
+	$(document).ready(function(){renderChart(data, ChartId);});
 	var canvas = document.querySelector('canvas');
 	fitToContainer(canvas);
 
-	function renderChart(input) {
+	function renderChart(input, picture) {
 		/*Chart program layouts as found on https://www.chartjs.org/samples/latest/*/
-		var chart = new Chart("chartContainer", { 
+		var chart = new Chart(picture, { 
 			type: 'line',
 				data: {
 					labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
@@ -252,4 +253,53 @@ function AnimateSlide(){
 		x[Index-1].style.display = "block";  
 		setTimeout(carousel, 4000); // Change image every 4 seconds
 	}
+}
+
+function openNav() {
+	document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+	document.getElementById("mySidenav").style.width = "0";
+}
+	
+function switchStateBtn(input){
+	closeNav();
+	loadChannel(".services", ".slideshow", ".partners", ".AboutSite", input);
+}
+function plusDivs(n) {
+	closebox();
+	setTimeout(function(){showDivs(slideIndex += n);}, 800);
+}
+
+function currentDiv(n) {
+	closebox();
+	setTimeout(function(){showDivs(slideIndex = n);}, 800);
+}
+
+function showDivs(n) {
+	var i;
+	var x = document.getElementsByClassName("mySlides");
+	var dots = document.getElementsByClassName("demo");
+	if (n > x.length) {slideIndex = 1}
+	if (n < 1) {slideIndex = x.length}
+	for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";  
+	}
+  
+  for (i = 0; i < dots.length; i++) {
+	    dots[i].className = dots[i].className.replace(" dotFill", "");
+	  }
+  x[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " dotFill";
+  openbox(slideIndex-1);
+ 
+  function openbox(place) {
+		document.getElementById("myDropdown").style.height = "200px";
+		document.getElementById("message").innerHTML = document.getElementById("StoreData"+place).innerHTML;
+	}
+}
+
+function closebox() {
+	document.getElementById("myDropdown").style.height = "0";
 }
