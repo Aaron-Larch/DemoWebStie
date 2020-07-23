@@ -5,6 +5,8 @@ CREATE TABLE users (
     Email VARCHAR(255),
     CustomerID VARCHAR(255),
     StorFile BLOB,
+    KeyQuestion varchar(280),
+    KeyAnswer varchar(255),
     roleid int
     
     Constraint PK_User Primary Key (PersonID),
