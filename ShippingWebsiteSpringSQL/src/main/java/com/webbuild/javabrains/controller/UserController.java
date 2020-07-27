@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.webbuild.javabrains.Store;
 import com.webbuild.javabrains.model.Role;
 import com.webbuild.javabrains.model.User;
 import com.webbuild.javabrains.repository.RoleRepository;
@@ -37,6 +38,7 @@ public class UserController {
     public String registration(Model model) {
     	model.addAttribute("userForm", new User()); //create new user object
     	model.addAttribute("Rolelist", roleRepository.findAll()); //set roles to a list
+    	model.addAttribute("questionsList", Store.getQuestions()); //get a list of security questions
         return "UserInterFace/registration";  //go to jsp page
     }
 

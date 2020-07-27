@@ -80,6 +80,7 @@ public class SecurityServiceImpl implements SecurityService{
         final PasswordResetToken passToken = passToken(token);
         return !isTokenFound(passToken) ? "invalidToken"
                 : isTokenExpired(passToken) ? "expired"
+                : isTokenused(passToken) ? "Used"
                 : "validToken";//if token is good return flag
     }
     
@@ -94,5 +95,15 @@ public class SecurityServiceImpl implements SecurityService{
         return passToken.getExpiryDate().before(cal.getTime());
     }
     
+    //check to see if token has already been used
+    private boolean isTokenused(PasswordResetToken passToken) {
+    	return passToken.getIsused()!=0;
+    }
+    
+    public void setToken(String Token) {
+    	final PasswordResetToken passToken = passToken(Token);
+    	passToken.setIsused('1');//if the token is not used set it to used
+    	passwordTokenRepository.save(passToken);
+    }
     
 }

@@ -13,15 +13,12 @@ public class User {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence") //Set Value to auto populate in database
     @SequenceGenerator(name = "id_Sequence", sequenceName = "USERS_SEQ") //Declare Database Sequence you want to use
     private int PersonID;
-
     private String username;
-
     private String password;
-    
     private String email;
-    
     private byte[] testcolum; //make sure types match for zip file
-    
+    private String keyquestion;
+	private String keyanswer;
     private Long roleid;
 
 	@Transient
@@ -92,5 +89,21 @@ public class User {
 
 	public void setTestcolum(byte[] testcolum) {
 		this.testcolum = testcolum;
+	}
+	
+	public String getKeyquestion() {
+		return keyquestion;
+	}
+
+	public void setKeyquestion(String keyques) {
+		keyquestion = keyques;
+	}
+
+	public String getKeyanswer() {
+		return keyanswer;
+	}
+
+	public void setKeyanswer(String keyAns) {
+		keyanswer = keyAns;
 	}
 }

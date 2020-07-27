@@ -26,6 +26,7 @@ public class PasswordResetToken {
 	private String token;
 	private long userid;
 	private Date expirydate;
+	private char isused;
 
 	@OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
 	@JoinColumn(nullable = false, name = "user_PersonID")
@@ -49,6 +50,7 @@ public class PasswordResetToken {
 		this.userid = user.getId();
 		this.user=user;
 		this.expirydate = calculateExpiryDate(EXPIRATION);
+		this.isused= '0';
 	}
 
 	//getters and setters
@@ -86,6 +88,14 @@ public class PasswordResetToken {
 
 	public void setExpiryDate(final Date expiryDate) {
 		this.expirydate = expiryDate;
+	}
+	
+	public char getIsused() {
+		return isused;
+	}
+
+	public void setIsused(char isused) {
+		this.isused = isused;
 	}
 
 	private Date calculateExpiryDate(final int expiryTimeInMinutes) {
@@ -151,7 +161,8 @@ public class PasswordResetToken {
 	@Override
 	public String toString() {
 		final StringBuilder builder = new StringBuilder();
-		builder.append("Token [String=").append(token).append("]").append("[Expires").append(expirydate).append("]");
+		builder.append("Token [String=").append(token).append("]").append("[Expires").append(expirydate).append("]")
+		.append("[Used=").append(isused).append("]");
 		return builder.toString();
 	}
 

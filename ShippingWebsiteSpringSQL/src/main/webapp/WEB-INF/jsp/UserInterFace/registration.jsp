@@ -57,7 +57,27 @@
                     <form:errors path="passwordConfirm"></form:errors>
                 </div>
             </spring:bind>
-
+				
+			<spring:bind path="keyquestion">
+				<div class="form-group ${status.error ? 'has-error' : ''}">
+					<label for="sel1">Select A Recovery question:</label>
+					<form:select path="keyquestion" class="form-control" id="sel1">
+						<option value="none">Choose A Question</option>
+						<c:forEach items="${questionsList}" var="quest">
+							<form:option value="${quest}">${quest}</form:option>
+						</c:forEach>
+					</form:select>
+					<form:errors path="keyquestion"></form:errors>
+				</div>
+			</spring:bind>
+			
+			<spring:bind path="keyanswer">
+				<div class="form-group ${status.error ? 'has-error' : ''}">
+					<form:input type="text" path="keyanswer" class="form-control" placeholder="Your Answer"></form:input>
+					<form:errors path="keyanswer"></form:errors>
+				</div>
+			</spring:bind>
+			
 			 <spring:bind path="roleid">
 			 	<div class="form-group">
 			 		<label for="sel1">Select A Role:</label>

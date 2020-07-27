@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override //Create a new user and role pair
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setKeyanswer(bCryptPasswordEncoder.encode(user.getKeyanswer()));
         Security.add(roleRepository.findById(user.getRoleid()).get()); //call a single role that matches the user input 
         user.setRoles(Security);
         userRepository.save(user);
@@ -52,14 +53,12 @@ public class UserServiceImpl implements UserService {
     //Save data and Release all used resources
     public User saveRecord(User user) {
     	//check user permissions
-    	if(user.getRoleid()==2) {
+    	if(user.getRoleid()==2 && AnaliticService.getFile()[0]!=null) {
     		try {
     			//check to see if there is and object to save
-    			if(AnaliticService.getFile()!=null) {
     				byte[] compressed = Store.compress(Dataprep.SavedData());//change java object to a .zip file
     				user.setTestcolum(compressed);//set file to user object
     				userRepository.save(user); //save user object
-    			}
     		} catch (IOException e) {e.printStackTrace();}
         	Dataprep.releaseresources();//reset counters
     	}

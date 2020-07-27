@@ -51,9 +51,18 @@ public class UserValidator implements Validator {
         
         //Check user object to see if the email Address is null
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty");
-        if (user.getEmail().length() < 6 || user.getEmail().length() > 32) {
-            errors.rejectValue("email", "Size.userForm.email"); //call Stored error message from the validation resource file
+        
+        //Check user object to see if user name is already in the data base
+        if (userService.findByUsername(user.getUsername()) != null) {
+            errors.rejectValue("email", "Duplicate.userForm.email"); //call Stored error message from the validation resource file
         }
+        
+        if (user.getKeyquestion().equals("none")) {
+            errors.rejectValue("keyquestion", "NotEmpty"); //call Stored error message from the validation resource file
+        }
+        
+        //Check user object to see if the email Address is null
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "keyanswer", "NotEmpty");
     }
     
     public void validateToken(Object o, Errors errors) {
@@ -61,6 +70,16 @@ public class UserValidator implements Validator {
         User test=userService.findByUsername(user.getUsername());
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+      //Check user object to see if the email Address is null
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "keyanswer", "NotEmpty");
+        if (user.getKeyquestion().equals("none")) {
+            errors.rejectValue("keyquestion", "NotEmpty"); //call Stored error message from the validation resource file
+        }
+        if (!test.getKeyquestion().equals(user.getKeyquestion()) || 
+        		!bCryptPasswordEncoder.matches(user.getKeyanswer(), test.getKeyanswer())) {
+            errors.rejectValue("keyanswer", "User.error.SecurityKey"); //call Stored error message from the validation resource file
+        }
+        
         //Check user object to see if password is null
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         //Check user object to see if user name is already in the data base
@@ -71,7 +90,6 @@ public class UserValidator implements Validator {
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) { //Set your password parameters here
             errors.rejectValue("password", "Size.userForm.password"); //call Stored error message from the validation resource file
         }
-
         //Check user object to see if the password comparison is correct 
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm"); //call Stored error message from the validation resource file

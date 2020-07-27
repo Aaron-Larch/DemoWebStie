@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.webbuild.javabrains.Store;
 import com.webbuild.javabrains.Operations.EmailEngine;
 import com.webbuild.javabrains.model.User;
 import com.webbuild.javabrains.repository.UserRepository;
@@ -88,6 +89,7 @@ public class AdminController {
 				User usr=securityservice.passToken(token).getUser();//generate user
 				model.addAttribute("token", token); //send token to client
 				model.addAttribute("PasswordForm", usr);//send user info to client
+				model.addAttribute("questionsList", Store.getQuestions()); //get a list of security questions
 				return "UserInterFace/updatePassword";//go to url
 			}
 		} catch (IOException e) {
@@ -99,12 +101,15 @@ public class AdminController {
 
 	//take information from client server and update database
     @PostMapping("/user/changePassword")
-    public String savePassword(@ModelAttribute("PasswordForm") User userForm, BindingResult bindingResult) {
+    public String savePassword(@ModelAttribute("PasswordForm") User userForm, BindingResult bindingResult, 
+    		@RequestParam("token") final String token, final Model model) {
     	userValidator.validateToken(userForm, bindingResult); //Check Object for errors
     	
         if (bindingResult.hasErrors()) {
+        	model.addAttribute("questionsList", Store.getQuestions()); //get a list of security questions)
             return "UserInterFace/updatePassword"; //If errors found retun to page with error message
         }
+        securityservice.setToken(token);
         GenerateToken.changeUserPassword(userForm, userForm.getPasswordConfirm()); //if no errors found save
         securityservice.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm()); //Auto login after successful save
 

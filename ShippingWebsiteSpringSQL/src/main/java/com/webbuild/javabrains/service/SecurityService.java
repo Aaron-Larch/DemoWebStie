@@ -15,4 +15,6 @@ public interface SecurityService {
 	String validatePasswordResetToken(String token);
 
 	PasswordResetToken passToken(String token);
+	
+	void setToken(String token);
 }

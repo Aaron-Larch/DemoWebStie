@@ -275,4 +275,14 @@ public class Store {
 				+" with the CartJS graphing software to make profeshinal looking reports that are fun to look at and easy to read.");
 		return SeviceDescp;
 	}
+	
+	public static List<String> getQuestions() {
+		List<String> SecurityQuestions=new ArrayList<String>();
+		SecurityQuestions.add("What is you first pets maiden Name?");
+		SecurityQuestions.add("What is the astrological sign of you house plant?");
+		SecurityQuestions.add("fathers favrite thing to drink on a monday?");
+		SecurityQuestions.add("What arcade game dose your local pizzaria have?");
+		SecurityQuestions.add("your gandmothers cusins friend former Roomates name?");
+		return SecurityQuestions;
+	}
 }

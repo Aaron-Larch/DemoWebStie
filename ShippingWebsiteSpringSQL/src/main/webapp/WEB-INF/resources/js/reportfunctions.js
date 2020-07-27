@@ -70,9 +70,9 @@ function loadContent(input) {
 	}else{document.getElementById('Display').value=string[input];}
 }
 
-
+//create a select function for multiple classes that are on one page. Do not know if this is a good Idea. but it will lower file count
 function loadChannel(cl1, cl2, cl3, cl4, flag){
-	if(flag=="Step1"){
+	if(flag=="Step1"){ //set flag values for each class
 		[].forEach.call(document.querySelectorAll(cl1), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl2), function (i) {i.style.display="none";});
 		[].forEach.call(document.querySelectorAll(cl3), function (i) {i.style.display="none";});
@@ -95,6 +95,7 @@ function loadChannel(cl1, cl2, cl3, cl4, flag){
 	}
 }
 
+//Create a bunch of objects at ones to make a graphics page
 function buildReport(
 		xAxsis,
 		bellData,
@@ -110,6 +111,7 @@ function buildReport(
 		    labels: xAxsis,
 		    datasets: [{ 
 		        data: bellData,
+		        //set a dynamic title card
 		        label: document.getElementById("divName").innerHTML,
 		        borderColor: "#3e95cd",
 		        fill: false
@@ -200,12 +202,13 @@ function buildReport(
 		});
 		chart.render();
 }
-//////////////////////////////////////////////////////
+//Take a canvas object and format it to fit in a div
 function chartslide(data, ChartId){
-	$(document).ready(function(){renderChart(data, ChartId);});
+	$(document).ready(function(){renderChart(data, ChartId);});//populate a chart object
 	var canvas = document.querySelector('canvas');
 	fitToContainer(canvas);
 
+	//by setting the canvas ID to a variabule you can duplacate this image quite easaly
 	function renderChart(input, picture) {
 		/*Chart program layouts as found on https://www.chartjs.org/samples/latest/*/
 		var chart = new Chart(picture, { 
@@ -242,6 +245,7 @@ function AnimateSlide(){
 	var Index = 0;
 	carousel();
 
+	//set all but one of the slides to hidden
 	function carousel() {
 		var i;
 		var x = document.getElementsByClassName("ProductSlides");
@@ -249,57 +253,64 @@ function AnimateSlide(){
 			x[i].style.display = "none";  
 		}
 		Index++;
-		if (Index > x.length) {Index = 1}    
+		if (Index > x.length) {Index = 1} //counter reset
 		x[Index-1].style.display = "block";  
 		setTimeout(carousel, 4000); // Change image every 4 seconds
 	}
 }
 
 function openNav() {
-	document.getElementById("mySidenav").style.width = "250px";
+	//set nav bar to open
+	document.getElementById("mySidenav").style.width = "250px";//triggers animation effect
 }
 
 function closeNav() {
-	document.getElementById("mySidenav").style.width = "0";
+	//set nav bar close
+	document.getElementById("mySidenav").style.width = "0";//triggers animation effect
 }
 	
 function switchStateBtn(input){
-	closeNav();
-	loadChannel(".services", ".slideshow", ".partners", ".AboutSite", input);
+	closeNav();//close nav bar before running class setting function
+	loadChannel(".services", ".slideshow", ".partners", ".AboutSite", input);//call class selector
 }
 function plusDivs(n) {
-	closebox();
-	setTimeout(function(){showDivs(slideIndex += n);}, 800);
+	closebox();//run closing animation
+	setTimeout(function(){showDivs(slideIndex += n);}, 800);//set timer before moving to next slide
 }
 
 function currentDiv(n) {
-	closebox();
-	setTimeout(function(){showDivs(slideIndex = n);}, 800);
+	closebox();//run closing animation
+	setTimeout(function(){showDivs(slideIndex = n);}, 800);//save slide posision
 }
 
 function showDivs(n) {
 	var i;
-	var x = document.getElementsByClassName("mySlides");
-	var dots = document.getElementsByClassName("demo");
-	if (n > x.length) {slideIndex = 1}
-	if (n < 1) {slideIndex = x.length}
+	var x = document.getElementsByClassName("mySlides");//set slide list to var
+	var dots = document.getElementsByClassName("demo");//set dadge list to var
+	if (n > x.length) {slideIndex = 1} //counter reset
+	if (n < 1) {slideIndex = x.length} //set flag so that when hitting back on the fist slide takes you to the last slide
+	
+	//hide all slides
 	for (i = 0; i < x.length; i++) {
 		x[i].style.display = "none";  
 	}
-  
-  for (i = 0; i < dots.length; i++) {
-	    dots[i].className = dots[i].className.replace(" dotFill", "");
-	  }
-  x[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " dotFill";
-  openbox(slideIndex-1);
+
+	//clear all badge backgrounds
+	for (i = 0; i < dots.length; i++) {
+		dots[i].className = dots[i].className.replace(" dotFill", "");
+	}
+	x[slideIndex-1].style.display = "block"; //show selected slide
+	dots[slideIndex-1].className += " dotFill"; //fill animated badge
+	openbox(slideIndex-1);//trigger box animation
  
-  function openbox(place) {
-		document.getElementById("myDropdown").style.height = "200px";
-		document.getElementById("message").innerHTML = document.getElementById("StoreData"+place).innerHTML;
+	//open text box animation
+	function openbox(place) {
+		document.getElementById("myDropdown").style.height = "200px";//triggers animation effect
+		document.getElementById("message").innerHTML = document.getElementById("StoreData"+place).innerHTML;//select proper text
 	}
 }
 
+//Just like close nav only set to hight.
 function closebox() {
-	document.getElementById("myDropdown").style.height = "0";
+	document.getElementById("myDropdown").style.height = "0";//triggers animation effect
 }
