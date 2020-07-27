@@ -97,7 +97,7 @@ public class SecurityServiceImpl implements SecurityService{
     
     //check to see if token has already been used
     private boolean isTokenused(PasswordResetToken passToken) {
-    	return passToken.getIsused()!=0;
+    	return passToken.getIsused()!='0';
     }
     
     public void setToken(String Token) {
