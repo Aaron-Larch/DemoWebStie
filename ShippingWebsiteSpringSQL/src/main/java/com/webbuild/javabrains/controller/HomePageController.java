@@ -7,9 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.webbuild.javabrains.Store;
@@ -46,15 +44,12 @@ public class HomePageController {
         return model;  //go to jsp page
     }
     
-  //update a single object
-	@RequestMapping(value = {"/TestPage"}, method=RequestMethod.POST) //a way to make two pages run off of the same method
-  	public ModelAndView TestMail(@ModelAttribute("testVal") String input) {
+  //Workbench page to test ideas. delete for final project
+	@RequestMapping("/TestPage") //a way to make two pages run off of the same method
+  	public ModelAndView TestMail() {
   		ModelAndView model = new ModelAndView();
   		System.out.println("hello");
-  		double[] array={450, 414, 520, 460, 450, 500, 480, 480, 410, 500, 480, 510};
-    	model.addObject("Data", array);
-    	model.addObject("test", input); //create new user object
-    	model.setViewName("Index");
+    	model.setViewName("NewFile");
         return model;  //go to jsp page 
   	}
 }//This Is a work Bench Page that is used for testing code

@@ -53,14 +53,16 @@ public class UserServiceImpl implements UserService {
     //Save data and Release all used resources
     public User saveRecord(User user) {
     	//check user permissions
-    	if(user.getRoleid()==2 && AnaliticService.getFile()[0]!=null) {
-    		try {
-    			//check to see if there is and object to save
+    	if(user.getRoleid()==2) {
+    		if(AnaliticService.getFile()!=null) {
+    			try {
+    				//check to see if there is and object to save
     				byte[] compressed = Store.compress(Dataprep.SavedData());//change java object to a .zip file
     				user.setTestcolum(compressed);//set file to user object
     				userRepository.save(user); //save user object
-    		} catch (IOException e) {e.printStackTrace();}
-        	Dataprep.releaseresources();//reset counters
+    			} catch (IOException e) {e.printStackTrace();}
+    			Dataprep.releaseresources();//reset counters
+    		}
     	}
     	//reset all stored variables for security and resource management
     	SpainShippingController.ResetValues();

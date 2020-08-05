@@ -30,7 +30,7 @@
 	
 	<span style="font-size:30px; cursor:pointer;" onclick="openNav()">&#9776; Welcome to the JBA Food Shipping & Tracking</span>
 	
-	<div id="Placeholder" class="slideshow">${test}
+	<div id="Placeholder" class="slideshow" style="display: none;">${test}
 		<div id="slider" class="Site_Features_List">
 			<c:forEach var="img" items="${imageUrlList}">  
 				<div id="silde" class="ProductSlides">
@@ -42,7 +42,7 @@
 		</div>
 	</div>
 	
-	<div id="Placeholder" class="services">
+	<div id="Placeholder" class="services" style="display: none;">
 		<div id="slider" class="Site_Features_List">
 			<c:forEach var="img" items="${imageUrlList}">  
 				<div id="silde" class="myslides">
@@ -65,7 +65,7 @@
 		<div id="myDropdown" class="dropdown-content"><p id="message"></p></div>
 	</div>
 	
-	<div Class="AboutSite">
+	<div Class="AboutSite" style="display: none;">
 		<img id="CenterLine" src="${contextPath}/FixedAssets/ComponyLogo.png" alt="Logo" width="300" height="200"/>
 		<br><br>
 		<img id="CenterLine" src="${contextPath}/FixedAssets/AaronLarch.jpg" alt="Founder" width="800" height="900"/>
@@ -86,13 +86,23 @@
 			Desinged part of the logic behind the Graphing software as well as cleaned up chart data generating subrutines.
 			He also created the basic layouts for the table display page where the reports are displayed</p>
 		</div>
+		<div class="clear"></div><br>
+				<div id="SubImage">
+			<img id="ArtConsultant" src="${contextPath}/FixedAssets/BenGibbs.jpg" 
+				style="float: left; margin-right: 15px;" alt="Co-Founder" width="350" height="320"/>
+			<h2><br><br>
+			This is our Sites Graphic Arts Consultant</h2>
+			<p style="text-align:center;"> Ben Gibbs Is responsibule for all of the art assets for the web Site.
+			He Desinged formated and cropped all of the royalty free art assets you see on this Sight. He and His
+			Crack team of Digial artists Worked Hard to create the artistic layout of the Entier site.</p>
+		</div>
 		<div class="clear"></div><br><br><br>
 		<div id="SubImage">
 			<img id="Add" src="${contextPath}/FixedAssets/ShopingInterface.PNG" 
 				style="float: right; margin-left: 15px;" alt="SamplePage" width="650" height="325"/>
 			<p style="text-align:Center;"><br>
 			This project started in march 2019 and went through several 
-			interations and redesigns as features were added and the sight exspanded to include more content and features. Throghout the
+			iterations and redesigns as features were added and the sight exspanded to include more content and features. Throghout the
 			evolution of this project many chalenges were overcome giving way to new code techniques and improving user security and interface.
 			With each challenge the code improved in quility not just for the curent product but for futuer changes as well<br>
 			Added Features include: <br>
@@ -104,7 +114,7 @@
 		<p  style="text-align:Center;">To contact us for an interview please call us at 111-222-3333 or go to a place that dose not exist</p>
 	</div>
 
-<div class="partners">
+<div class="partners" style="display: none;">
    <table class="table table-striped" id="partners-Table">
    <caption style="caption-side: top;">Here are Some of the shipping companies we work with</caption>
    <thead>

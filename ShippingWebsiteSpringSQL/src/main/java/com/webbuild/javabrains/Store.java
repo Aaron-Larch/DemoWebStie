@@ -280,9 +280,9 @@ public class Store {
 		List<String> SecurityQuestions=new ArrayList<String>();
 		SecurityQuestions.add("What is you first pets maiden Name?");
 		SecurityQuestions.add("What is the astrological sign of you house plant?");
-		SecurityQuestions.add("fathers favrite thing to drink on a monday?");
+		SecurityQuestions.add("Your father's favrite thing to drink on a monday?");
 		SecurityQuestions.add("What arcade game dose your local pizzaria have?");
-		SecurityQuestions.add("your gandmothers cusins friend former Roomates name?");
+		SecurityQuestions.add("your grandmother's cusin's friend former Roomate's name?");
 		return SecurityQuestions;
 	}
 }

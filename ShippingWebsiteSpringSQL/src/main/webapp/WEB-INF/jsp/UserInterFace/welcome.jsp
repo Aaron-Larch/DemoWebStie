@@ -102,7 +102,7 @@
   
    <!-- button to launch the stored reports table -->
   <spring:url value="/Stats/closerecords" var="Table" />
-  <li style="display: ${role};"><a class="btn btn-primary" href="${Table }" role="button" >View Saved Reports</a></li>
+  <li style="display: ${role};"><a class="btn btn-primary" href="${Table }" role="button" ${LoadObject} >View Saved Reports</a></li>
   </section>
   </aside>
  </div>

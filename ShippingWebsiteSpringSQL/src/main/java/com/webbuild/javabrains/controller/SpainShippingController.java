@@ -36,6 +36,7 @@ import com.webbuild.javabrains.repository.ProductsRepository;
 import com.webbuild.javabrains.repository.ShippingRepository;
 import com.webbuild.javabrains.repository.SuppliersRepository;
 import com.webbuild.javabrains.repository.UserRepository;
+import com.webbuild.javabrains.service.AnaliticService;
 import com.webbuild.javabrains.service.SecurityService;
 
 
@@ -89,6 +90,14 @@ public class SpainShippingController {
 			pageflag=id; //save state flag for place keeping
 			ordersList = shippingservice.getAllOrders(id); //run a sql query
 		} 
+		
+		if(AnaliticService.getFile()[0]==null) {
+			//set quick link to main report table
+			model.addObject("LoadObject", "disabled='disabled' onclick='return false;'"); //send objects to jsp page
+			
+		}else {
+			model.addObject("LoadObject", " "); //send objects to jsp page
+		}
 		//set object for web page
 		model.addObject("role", "block"); //send objects to jsp page
 		model.addObject("listCategory", headders); //send objects to jsp page
