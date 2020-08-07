@@ -259,14 +259,19 @@ function AnimateSlide(){
 	}
 }
 
-function openNav() {
-	//set nav bar to open
+function openNav() { 
+	//set nav bar to open 
 	document.getElementById("mySidenav").style.width = "250px";//triggers animation effect
 }
 
-function closeNav() {
+function closeNav() { 
 	//set nav bar close
 	document.getElementById("mySidenav").style.width = "0";//triggers animation effect
+}
+
+//Just like close nav only set to hight.
+function closebox() {
+	document.getElementById("myDropdown").style.height = "0";//triggers animation effect
 }
 	
 function switchStateBtn(input){
@@ -310,7 +315,24 @@ function showDivs(n) {
 	}
 }
 
-//Just like close nav only set to hight.
-function closebox() {
-	document.getElementById("myDropdown").style.height = "0";//triggers animation effect
+function PageSetUp(sidenav, slideIndex, input){
+	//load Javascript functions for page
+	AnimateSlide();
+	showDivs(slideIndex);
+	chartslide(input, "chartContainer");
+	chartslide(input, "chartClone");
+	
+	//This is a two part method to have the sidenav close when the user clicks off the winow
+	$('html').click(function( event) {
+		 var a  = event.target;
+		 var checkopen = sidenav.style.width //Check if sideNav is open
+		 //negate clicking on the menu itself
+		 if(a !== sidenav && checkopen !== "0"){
+			 closeNav(); //  Hide the sidebar
+		 }
+	});
+	
+	$('#Openmenue').click(function(event){
+	    event.stopPropagation(); // prevents executing the above event
+	});
 }

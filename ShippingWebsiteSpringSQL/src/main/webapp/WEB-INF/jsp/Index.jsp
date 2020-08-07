@@ -20,15 +20,17 @@
 <body>
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a onclick="switchStateBtn('Step1')" href="javascript:void(0)">About</a>
-		<a onclick="switchStateBtn('Step2')" href="javascript:void(0)">Services</a>
-		<a onclick="switchStateBtn('Step3')" href="javascript:void(0)">Partners</a>
-		<a onclick="switchStateBtn('Step4')" href="javascript:void(0)">Home</a>
+		<a onclick="switchStateBtn('Step1')" href="javascript:void(0)" class='menuLinks'>About</a>
+		<a onclick="switchStateBtn('Step2')" href="javascript:void(0)" class='menuLinks'>Services</a>
+		<a onclick="switchStateBtn('Step3')" href="javascript:void(0)" class='menuLinks'>Partners</a>
+		<a onclick="switchStateBtn('Step4')" href="javascript:void(0)" class='menuLinks'>Home</a>
 		<spring:url value="${contextPath}/login" var="StartURL" />
-		<a id="LoadFile" href="${StartURL }" >Login</a>.
+		<a id="LoadFile" href="${StartURL }" class='menuLinks'>Login</a>.
 	</div>
 	
-	<span style="font-size:30px; cursor:pointer;" onclick="openNav()">&#9776; Welcome to the JBA Food Shipping & Tracking</span>
+	<p class="Headder" style="font-size:30px;">
+	<span style="font-size:30px; cursor:pointer;" onclick="openNav()" id="Openmenue">&#9776;</span>
+		 Welcome to the JBA Food Shipping & Tracking</p>
 	
 	<div id="Placeholder" class="slideshow" style="display: none;">${test}
 		<div id="slider" class="Site_Features_List">
@@ -134,12 +136,10 @@
 
 <script>
 	window.onload = function () {loadChannel(".services", ".slideshow", ".partners", ".AboutSite", "Step4");}
-	chartslide(${Arrays.toString(Data)}, "chartContainer");
-	chartslide(${Arrays.toString(Data)}, "chartClone");
-	AnimateSlide();
+	var slideIndex = 1;	
 	
-	var slideIndex = 1;
-	showDivs(slideIndex);
+	//this method is used to hide the backend funktions
+	PageSetUp(document.getElementById("mySidenav"), slideIndex, ${Arrays.toString(Data)});
 </script>
 </body>
 </html>
