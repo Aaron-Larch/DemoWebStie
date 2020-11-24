@@ -11,7 +11,6 @@ public class ApplicationStartUp extends SpringBootServletInitializer{
 	//https://localhost:8443/HomePage
 	//http://localhost:8084/TestPage
 	public static void main(String[] args) {
-		//the run spring server command
-		SpringApplication.run(ApplicationStartUp.class, args);
+		SpringApplication.run(ApplicationStartUp.class, args);	//the run spring server command
 	}
 }
