@@ -184,7 +184,7 @@ public class improvedMailgunDemo {
 		// Finally, send the message! (use static Transport method)
 		// Do this in a Thread as it sometimes is too slow for JServ
 		SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
-		t.connect(mailHost, "postmaster@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org", "130cb669624f29b481af78a18f5ee961-07bc7b05-2c3fa8ec");
+		t.connect(mailHost, "username", "password");
 		t.sendMessage(mesg, mesg.getAllRecipients());
 		System.out.println("Response: " + t.getLastServerResponse());
 		t.close();
@@ -226,17 +226,17 @@ public class improvedMailgunDemo {
 				//String UseFormat = DownloadUtil.createPdf("update", data);
 				
 				List<String> inputPath=new ArrayList<String>();
-				inputPath.add("C:/Users/gce/Desktop/GCE Paperwork/Timesheet Tracker.xlsx");
+				inputPath.add("file path");
 				
 				ArrayList<String> ccEmail=new ArrayList<String>();
-				ccEmail.add("celesteholz@gmail.com");
-				//ccEmail.add("ben.gibbs13@gmail.com");
+				ccEmail.add("person@place.com);
+				//ccEmail.add("person@otherplace.com");
 				
 				improvedMailgunDemo.send(
 						"smtp.mailgun.org",
-						"a.larch@yahoo.com",
+						"Myname@service.org",
 						ccEmail,
-						"Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org",
+						"account name",
 						"My Third test",
 						"I'm sending you this with my cusom dynamic Email server. because this is way more fun than Navigating Cytrix. "+
 						" will also be makeing a new update to my Git hub server next week looking forward to that.",
