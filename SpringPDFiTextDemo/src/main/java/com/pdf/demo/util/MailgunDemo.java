@@ -7,9 +7,9 @@ import javax.mail.internet.*;
 import com.sun.mail.smtp.*;
 
 public class MailgunDemo {
-	protected String message_recip = "a.larch@yahoo.com"; //The message recipient.
+	protected String message_recip = "person@place.com"; //The message recipient.
 	protected String message_subject = "This is a test email"; // Subject line of the email
-	protected String message_cc = "ben.gibbs13@gmail.com"; //The message CC recipient.
+	protected String message_cc = "person@otherplace.com"; //The message CC recipient.
 	protected Session session; // The JavaMail session object
 	protected Message mesg; // The JavaMail message object
 	/** The message body put last due to size and temporary nature soon to be replaced */
@@ -36,7 +36,7 @@ public class MailgunDemo {
 			// create a message 
 			mesg = new MimeMessage(session);
 			// From Address - this should come from a Properties...
-			mesg.setFrom(new InternetAddress("Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org"));
+			mesg.setFrom(new InternetAddress("Email account name"));
 			// TO Address
 			InternetAddress toAddress = new InternetAddress(message_recip);
 			mesg.addRecipient(Message.RecipientType.TO, toAddress);
@@ -51,7 +51,7 @@ public class MailgunDemo {
 			// TODO I18N: use setText(msgText.getText( ), charset)
 			// Finally, send the message!
 			SMTPTransport t = (SMTPTransport) session.getTransport("smtps");
-	        t.connect("smtp.mailgun.org", "postmaster@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org", "130cb669624f29b481af78a18f5ee961-07bc7b05-2c3fa8ec");
+	        t.connect("smtp.mailgun.org", "username", "password");
 	        t.sendMessage(mesg, mesg.getAllRecipients());
 
 	        System.out.println("Response: " + t.getLastServerResponse());
@@ -75,9 +75,9 @@ public class MailgunDemo {
         Session session = Session.getInstance(props, null);
         session.setDebug(true); // Verbose!
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org"));
+        msg.setFrom(new InternetAddress("test name"));
 
-        InternetAddress[] addrs = InternetAddress.parse("a.larch@yahoo.com", false);
+        InternetAddress[] addrs = InternetAddress.parse("person@place.com", false);
         msg.setRecipients(Message.RecipientType.TO, addrs);
 
         msg.setSubject("Hello");
@@ -86,7 +86,7 @@ public class MailgunDemo {
 
         SMTPTransport t =
             (SMTPTransport) session.getTransport("smtps");
-        t.connect("smtp.mailgun.org", "postmaster@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org", "130cb669624f29b481af78a18f5ee961-07bc7b05-2c3fa8ec");
+        t.connect("smtp.mailgun.org", "username", "password");
         t.sendMessage(msg, msg.getAllRecipients());
 
         System.out.println("Response: " + t.getLastServerResponse());
