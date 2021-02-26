@@ -48,6 +48,7 @@ public class UserController {
         userValidator.validate(userForm, bindingResult); //Check Object for errors
 
         if (bindingResult.hasErrors()) {
+        	//refresh dropdown lists
         	model.addAttribute("questionsList", Store.getQuestions()); //get a list of security questions
         	model.addAttribute("Rolelist", roleRepository.findAll()); //set roles to a list
             return "UserInterFace/registration"; //If errors found retun to page with error message

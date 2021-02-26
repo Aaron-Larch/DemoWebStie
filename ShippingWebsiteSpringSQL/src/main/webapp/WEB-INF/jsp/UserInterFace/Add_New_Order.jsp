@@ -6,6 +6,7 @@
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/> 
 <head>
  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
  <title>Create new Article Form</title>
@@ -118,28 +119,28 @@
  
 <!--User Input class For all fields of the table object-->
  <div class="container">
-  <spring:url value="/Shipping/tableUpdate" var="addURL" />
+  <spring:url value="${contextPath}/Shipping/tableUpdate" var="addURL" />
   <h2>Article</h2>
   <form:form modelAttribute="order" method="post" action="${addURL }" cssClass="form" >
    
 	<div class="form-group">
    <!-- Fixed Id should not allow user interaction -->
    <label>Order Id</label>
-   <form:input path="ORDERID" cssClass="form-control" id="orderId" Value="${OrderID}"/>
+   <form:input path="ORDERID" cssClass="form-control" id="orderId" Value="${OrderID}" readonly="readonly"/>
    </div>
   
    <div class="form-group">
    <!-- Fixed list of Values needs drop down menu -->
-    <label>Customer Id</label>
-    <form:input path="CUSTOMERID" cssClass="form-control" id="customerId"/>
+    <label>Customer Id(Due to Database Inaccuracies all users are given the "GODOS" ID)</label>
+    <form:input path="CUSTOMERID" cssClass="form-control" id="customerId" readonly="readonly"/>
    </div>
    <div class="form-group">
-    <label>Discount Id</label>
-    <form:input path="EMPLOYEEID" cssClass="form-control" id="employeeId" Value="${order.EMPLOYEEID}"/>
+    <label>Discount Id(8 means you chose to forgo a discount 6 means you applied a discount)</label>
+    <form:input path="EMPLOYEEID" cssClass="form-control" id="employeeId" Value="${order.EMPLOYEEID}" readonly="readonly"/>
    </div>
    <div class="form-group">
-    <label>Amount Purchased</label>
-    <form:input path="SHIPVIA" cssClass="form-control" id="shipVia" Value="${order.SHIPVIA}"/>
+    <label>Amount Purchased(Fixed to "3" due to table discrepancies)</label>
+    <form:input path="SHIPVIA" cssClass="form-control" id="shipVia" Value="${order.SHIPVIA}" readonly="readonly"/>
    </div>
    <div class="form-group">
     <label>Total Price</label>
