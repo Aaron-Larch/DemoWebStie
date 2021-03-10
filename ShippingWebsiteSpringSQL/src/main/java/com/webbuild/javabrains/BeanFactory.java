@@ -3,8 +3,6 @@
  */
 package com.webbuild.javabrains;
 
-import java.util.Properties;
-
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
@@ -13,8 +11,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+
 
 /**
  * @author gce
@@ -57,24 +60,33 @@ public class BeanFactory {
         return connector;
     }
     
-    @Bean
-	public JavaMailSender getJavaMailSender() {
-	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-	    mailSender.setHost("smtp.office365.com");
-	    mailSender.setPort(587);
-	    
-	    mailSender.setUsername("aaron.larch@gce.org");
-	    mailSender.setPassword("GC3W!ning!");
-	    
-	    Properties properties = mailSender.getJavaMailProperties();
-		
-	    // Your LAN must define the local SMTP server as "mailhost"
-		properties.put("mail.transport.protocol", "smtp");//Declare Mail Protocol
-		properties.put("mail.smtp.host", "smtp.office365.com"); //SMTP Host must match the from email address not to.
-		properties.put("mail.smtp.port", "587"); //TLS Port
-		properties.put("mail.smtp.auth", "true"); //enable authentication
-		properties.put("mail.smtp.starttls.enable", "true"); //enable STARTTLS
-		properties.put("mail.debug", "true");
-	    return mailSender;
-	}
+    @Bean //Create a special viewer for jsp files
+    InternalResourceViewResolver jspViewResolver() {
+        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/jsp/"); //select file location
+        viewResolver.setSuffix(".jsp"); //declare file type
+        viewResolver.setViewClass(JstlView.class); //declare media type
+        viewResolver.setOrder(1);
+        return viewResolver;
+    }
+	
+	@Bean
+	 public SpringTemplateEngine textTemplateEngine() {
+		 SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+		 //load templates into a deployabule template engine
+		 templateEngine.addTemplateResolver(htmlTemplateResolver());
+		 return templateEngine;
+	 }
+
+	 private ITemplateResolver htmlTemplateResolver() {
+		 ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		 templateResolver.setOrder(2); //select order for running multiple media types
+		 templateResolver.setPrefix("templates/"); //select file location, note will always run from resource folder unless told otherwise
+		 templateResolver.setSuffix(".html"); //declare file type
+		 templateResolver.setTemplateMode(TemplateMode.HTML); //declare media type
+		 templateResolver.setCharacterEncoding("UTF-8"); //set encoding, optional
+		 templateResolver.setCacheable(false);
+		 templateResolver.setCheckExistence(true);// check for other template resolvers
+		 return templateResolver;
+	 }
 }

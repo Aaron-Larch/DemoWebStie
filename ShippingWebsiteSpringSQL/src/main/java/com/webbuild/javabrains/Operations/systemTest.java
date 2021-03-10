@@ -1,11 +1,14 @@
 package com.webbuild.javabrains.Operations;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 
 import com.webbuild.javabrains.model.Reports;
+import com.webbuild.javabrains.service.MailGunService;
 
 /**
  * @author gce
@@ -20,28 +23,32 @@ public class systemTest {
 	//Java testing location Holds an execute method for purposes of development
 	public static void main(String[] args){
 		//Export();
-		
-		
-		
+		systemTest placeholder = new systemTest();
+		placeholder.testbuild();
+	}
+	public void testbuild(){
 		try {
+			MailGunService mail = new MailGunService();
+			Map<String,String> data = new HashMap<String,String>();
+			data.put("name","James");
+			//String UseFormat = downloadutil.createPdf("WelcomeUser", data);
+			
 			List<String> inputPath=new ArrayList<String>();
-			inputPath.add("C:/Users/gce/Desktop/Timesheet Tracker.xlsx");
-			//inputPath.add("C:/Users/gce/Desktop/Project summory version 2..docx");
+			//inputPath.add("C:/Users/GCE/Desktop/Web Disine/Build the server.docx");
 			
 			ArrayList<String> ccEmail=new ArrayList<String>();
-			//ccEmail.add("*****************");
-			//ccEmail.add("*****************");
+			//ccEmail.add("celesteholz@gmail.com");
+			//ccEmail.add("ben.gibbs13@gmail.com");
 			
-			EmailEngine.send(
-					"smtp.office.com",
-					"*****************",
-					"*****************",
+			mail.send(
+					"smtp.mailgun.org",
+					"aaron.larch@gce.org",
 					ccEmail,
-					false,
-					"My War Report",
-					"I'm sending you this with my cusom dynamic Email server. because this is way more fun than Navigating Cytrix. "+
-					" will also be makeing a new update to my Git hub server next week looking forward to that.",
-					inputPath);
+					"Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org",
+					"New Spring Email test",
+					"This test is to test a standard blank email to see if all the null value readers work.",
+					inputPath,
+					false, false, true);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

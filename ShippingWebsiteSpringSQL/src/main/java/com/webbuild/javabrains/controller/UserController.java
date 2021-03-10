@@ -1,5 +1,10 @@
 package com.webbuild.javabrains.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +18,8 @@ import com.webbuild.javabrains.Store;
 import com.webbuild.javabrains.model.Role;
 import com.webbuild.javabrains.model.User;
 import com.webbuild.javabrains.repository.RoleRepository;
+import com.webbuild.javabrains.service.DownloadUtil;
+import com.webbuild.javabrains.service.MailGunService;
 import com.webbuild.javabrains.service.SecurityService;
 import com.webbuild.javabrains.service.UserService;
 
@@ -29,7 +36,13 @@ public class UserController {
     private SecurityService securityService;
 
     @Autowired //call the validation methods
-    private UserValidator userValidator; 
+    private UserValidator userValidator;
+    
+    @Autowired //Call template methods
+    private DownloadUtil downloadutil;
+    
+    @Autowired //Call email methods
+    private MailGunService mailgunservice;
     
     static User usr = new User();
     
@@ -54,6 +67,23 @@ public class UserController {
             return "UserInterFace/registration"; //If errors found retun to page with error message
         }
         userService.save(userForm); //if no errors found save
+        try {
+			//Attach an HTML formated Newsletter the the email body
+        	Map<String,String> data = new HashMap<String,String>();
+			data.put("name", userForm.getUsername()); //set dynamic variables
+			String UseFormat = downloadutil.createPdf("WelcomeUser", data); //set template
+			
+			//Send the user a custom welcome email
+			mailgunservice.send(
+					"smtp.mailgun.org", //Email host
+					"aaron.larch@gce.org", //should be userForm.getEmail()
+					null, //cc list
+					"Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org", //Domain name
+					"Welcome New User", //subject line
+					UseFormat, //message body
+					null, //optional attachment
+					true, false, true); //system flags newsletter, debug, and Alias 
+		} catch (MessagingException e) { e.printStackTrace();}
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm()); //Auto login after successful save
 
         return "redirect:/welcome";  //go to jsp page

@@ -15,7 +15,7 @@ public class Steps {
     public void initialize(String website){
     	if (!initialized){
             initialized = true;
-            System.setProperty("webdriver.gecko.driver", "C:/Users/gce/Desktop/programs/jar_files/geckodriver.exe");					
+            System.setProperty("webdriver.gecko.driver", "C:/Users/GCE/Desktop/Programs/New-Java/geckodriver.exe");					
             driver= new FirefoxDriver();					
             driver.manage().window().maximize();
     		driver.get(website);

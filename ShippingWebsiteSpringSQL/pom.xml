@@ -80,18 +80,17 @@
             <scope>provided</scope>
         </dependency>
         
+        <!-- Thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        
 		<!-- JSTL for JSP -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
-		
-		 <!-- send email -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-		
 		
 		 <!-- Need this to compile JSP -->
     	<dependency>
@@ -103,6 +102,13 @@
  			<artifactId>bootstrap</artifactId>
  			<version>4.0.0</version>
 		</dependency>
+		
+		<!-- flying saucer pdf -->  
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>9.1.4</version>
+        </dependency>
 
 		<!-- Spring Testing dependencies -->
 		<dependency>
@@ -128,6 +134,14 @@
 	</dependencies>
 
 	<build>
+		<resources>
+            <resource>
+                <directory>src/main/webapp</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

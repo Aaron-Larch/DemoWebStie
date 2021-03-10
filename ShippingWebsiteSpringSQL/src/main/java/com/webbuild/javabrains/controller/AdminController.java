@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.webbuild.javabrains.Store;
-import com.webbuild.javabrains.Operations.EmailEngine;
 import com.webbuild.javabrains.model.User;
 import com.webbuild.javabrains.repository.UserRepository;
 import com.webbuild.javabrains.service.SecurityService;
@@ -64,7 +63,7 @@ public class AdminController {
 			String token = UUID.randomUUID().toString();//generate unique token string
 			GenerateToken.createPasswordResetTokenForUser(user, token);//save token to database
 			String appUrl = "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();//generate URL
-			EmailEngine.constructResetTokenEmail(appUrl, request.getLocale(), token, user);//send information to email generator method
+			//EmailEngine.constructResetTokenEmail(appUrl, request.getLocale(), token, user);//send information to email generator method
 			String test=props.getProperty("message.resetPasswordEmail");//Confirmation message
 			model.addObject("message", test); //send message to client server
 		}else {

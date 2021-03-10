@@ -16,7 +16,7 @@ public class ExternalConnection{
 	//Static Server connection Data Source
 		private static String myDriver = "oracle.jdbc.OracleDriver";
 		private static String server = "jdbc:oracle:thin:@localhost:1521:xe";
-		private static String username = "system";
+		private static String username = "student";
 		private static String password = "student";
 		static List<TableObjects>Topics;
 

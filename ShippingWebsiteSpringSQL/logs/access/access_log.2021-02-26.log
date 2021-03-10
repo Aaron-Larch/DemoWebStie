@@ -1,0 +1,17 @@
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /HomePage HTTP/1.1" 200 29590
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Beverages.jpg HTTP/1.1" 200 42287
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /FixedAssets/ComponyLogo.png HTTP/1.1" 200 25947
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Confusing%20Interfaces.PNG HTTP/1.1" 200 54655
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Produce.jpg HTTP/1.1" 200 90190
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Condiments.jpg HTTP/1.1" 200 81102
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Meat%20&%20Pultry.jpg HTTP/1.1" 200 124485
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /FixedAssets/ShopingInterface.PNG HTTP/1.1" 200 27851
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /FixedAssets/BenGibbs.jpg HTTP/1.1" 200 48223
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Grain%20&%20Cereal.jpg HTTP/1.1" 200 49949
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/SeaFood.jpeg HTTP/1.1" 200 267854
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/confections.jpg HTTP/1.1" 200 315715
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /FixedAssets/BrianRodewald1.jpg HTTP/1.1" 200 917302
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /FixedAssets/AaronLarch.jpg HTTP/1.1" 200 995586
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /ImageAssets/Dairy%20products.jpg HTTP/1.1" 200 1718054
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /favicon.ico HTTP/1.1" 302 -
+127.0.0.1 - - [26/Feb/2021:10:21:37 -0500] "GET /login HTTP/1.1" 200 6472

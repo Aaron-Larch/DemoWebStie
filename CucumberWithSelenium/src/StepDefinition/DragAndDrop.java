@@ -12,7 +12,7 @@ public class DragAndDrop {
 
     @Test		
     public void DragnDrop(){		
-    	System.setProperty("webdriver.gecko.driver", "C:/Users/gce/Desktop/programs/jar_files/geckodriver.exe");					
+    	System.setProperty("webdriver.gecko.driver", "C:/Users/GCE/Desktop/Programs/New-Java/geckodriver.exe");					
         driver= new FirefoxDriver();					
         driver.manage().window().maximize();					
         driver.get("http://demo.guru99.com/test/drag_drop.html");					
