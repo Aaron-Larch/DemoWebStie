@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
     			try {
     				//check to see if there is and object to save
     				byte[] compressed = Store.compress(Dataprep.SavedData());//change java object to a .zip file
-    				user.setTestcolum(compressed);//set file to user object
+    				user.setStorefile(compressed);//set file to user object
     				userRepository.save(user); //save user object
     			} catch (IOException e) {e.printStackTrace();}
     			Dataprep.releaseresources();//reset counters
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService {
     //Load a saved object from the SQL table
     public void LoadRecord(User user) {
     	//check to see if there is a blob object on the database
-    	if(user.getTestcolum() != null) {
-    		byte[] compressed=user.getTestcolum();//get blob compressed object
+    	if(user.getStorefile() != null) {
+    		byte[] compressed=user.getStorefile();//get blob compressed object
 			try {
 				String decomp = Store.decompress(compressed);//convert .zip to java
 				Dataprep.LoadSavedData(decomp);//set counters to appropriate values

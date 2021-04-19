@@ -11,12 +11,12 @@ public class User {
     
 	@Id //identify primary key
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "id_Sequence") //Set Value to auto populate in database
-    @SequenceGenerator(name = "id_Sequence", sequenceName = "USERS_SEQ") //Declare Database Sequence you want to use
+    @SequenceGenerator(name = "id_Sequence", sequenceName = "ROLEID_SEQ") //Declare Database Sequence you want to use
     private int PersonID;
     private String username;
     private String password;
     private String email;
-    private byte[] testcolum; //make sure types match for zip file
+    private byte[] storfile; //make sure types match for zip file
     private String keyquestion;
 	private String keyanswer;
     private Long roleid;
@@ -83,12 +83,12 @@ public class User {
         this.roles = roles; // save a value
     }
 
-	public byte[] getTestcolum() {
-		return testcolum;
+	public byte[] getStorefile() {
+		return storfile;
 	}
 
-	public void setTestcolum(byte[] testcolum) {
-		this.testcolum = testcolum;
+	public void setStorefile(byte[] testcolum) {
+		this.storfile = testcolum;
 	}
 	
 	public String getKeyquestion() {

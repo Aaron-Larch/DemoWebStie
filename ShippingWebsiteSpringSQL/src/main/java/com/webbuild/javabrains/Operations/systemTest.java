@@ -26,6 +26,7 @@ public class systemTest {
 		systemTest placeholder = new systemTest();
 		placeholder.testbuild();
 	}
+	
 	public void testbuild(){
 		try {
 			MailGunService mail = new MailGunService();
@@ -42,13 +43,13 @@ public class systemTest {
 			
 			mail.send(
 					"smtp.mailgun.org",
-					"aaron.larch@gce.org",
+					"Resipeant@email.com",
 					ccEmail,
-					"Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org",
+					"Sender@domain.com",
 					"New Spring Email test",
 					"This test is to test a standard blank email to see if all the null value readers work.",
 					inputPath,
-					false, false, true);
+					false, true, false);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

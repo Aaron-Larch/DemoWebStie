@@ -33,6 +33,7 @@ public class DownloadUtil {
     @Autowired
     private ServletContext servletContext;
 
+    //generate a media type that a computer can use to download
     public MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) {
         String mineType = servletContext.getMimeType(fileName); //parse file name to isolate the file type
         try {
@@ -43,6 +44,7 @@ public class DownloadUtil {
         }
     }
 	
+    //Convert an html file into a string
 	public String createPdf(String templateName, Map<String,String> map) {
 		Assert.notNull(templateName, "The templateName can not be null"); //Check for template
 		Context ctx = new Context();
@@ -56,7 +58,8 @@ public class DownloadUtil {
 		String processedHtml = templateEngine.process(templateName, ctx); //load context object into html file and convert to string
 		return processedHtml;
 	 }
-	 
+	
+	//convert a string into a .pdf format
 	public File Download (String templateName, Map<String,String> map, String fileName) {
 		String content=createPdf(templateName, map); //convert .html file to a string
 		FileOutputStream os = null;
@@ -84,6 +87,7 @@ public class DownloadUtil {
 		return outputFile;
 	}
 	
+	//Generate Dynamic Download pop up window in browser
 	public ResponseEntity<InputStreamResource> FullDownloadService(String templateName, Map<String,String> map, String fileName){
 		//generate .pdf document from .html page, give it a name and store it in a file object
         File file = Download(templateName, map, fileName);
@@ -95,8 +99,6 @@ public class DownloadUtil {
 			
 			//Dynamically Generate appropriate data type for download file. Must match the stored file object
 	        MediaType mediaType = getMediaTypeForFileName(this.servletContext, file.getName());
-			
-			//Generate Dynamic Download pop up window in browser
 	        return ResponseEntity.ok()
 	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + file.getName()) // Content-Disposition
 	                .contentType(mediaType) // Content-Type(File type)
@@ -107,7 +109,5 @@ public class DownloadUtil {
 			e.printStackTrace();
 			return null;
 		}
-        
-       
 	}
 }

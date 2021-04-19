@@ -158,19 +158,19 @@ public class MailGunService {
 		mesg.setRecipients(Message.RecipientType.BCC, addresses);
 		
 		
-		mesg.setSubject(subject); // The Subject
+		mesg.setSubject(subject); // The Subject line
 		
-		// Create a multipart message for attachment
+		// Create a multi-part message to enable newsletters an attachments 
         Multipart multipart = new MimeMultipart();
         
-        // Second part is attachment
+        // for loops enable single or multiple attachment to be added
         for(String i: Attachment) {
         	BodyPart messageBodyPart2 = new MimeBodyPart(); // Create the message body part
-        	DataSource source = new FileDataSource(i);
-        	messageBodyPart2.setDataHandler(new DataHandler(source));
-        	messageBodyPart2.setFileName(i);
-        	messageBodyPart2.setHeader("Content-ID", "Package for you");
-        	multipart.addBodyPart(messageBodyPart2);
+        	DataSource source = new FileDataSource(i); //convert file into a stream
+        	messageBodyPart2.setDataHandler(new DataHandler(source)); //attach stream to email
+        	messageBodyPart2.setFileName(i); //give the file a name
+        	messageBodyPart2.setHeader("Content-ID", "Package for you"); //give file an ailus
+        	multipart.addBodyPart(messageBodyPart2); //add to body of email
         }
         
         BodyPart messageBodyPart1 = new MimeBodyPart(); // Create the message body part
@@ -222,19 +222,4 @@ public class MailGunService {
 			m.doSend(tempPath);
 		}
 	}
-		/** Convert a list of addresses to an ArrayList. This will work
-		 * for simple names like "tom, mary@foo.com, 123.45@c$.com"
-		 * but will fail on certain complex (but RFC-valid) names like
-		 * "(Darwin, Ian) <ian@darwinsys.com>".
-		 * Or even "Ian Darwin <ian@darwinsys.com>".     */
-		protected List<String> tokenize(String s) {
-			List<String> al = new ArrayList<String>();
-			StringTokenizer tf = new StringTokenizer(s, ",");
-			// For each word found in the line
-			while (tf.hasMoreTokens( )) {
-				// trim blanks, and add to list.
-				al.add(tf.nextToken( ).trim( ));
-				}
-			return al;
-		}
 }

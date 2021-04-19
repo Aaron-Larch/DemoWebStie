@@ -76,13 +76,13 @@ public class UserController {
 			//Send the user a custom welcome email
 			mailgunservice.send(
 					"smtp.mailgun.org", //Email host
-					"aaron.larch@gce.org", //should be userForm.getEmail()
+					"Resipeant@email.com", //should be userForm.getEmail()
 					null, //cc list
-					"Heroku@sandboxfb130d48c13c4e6593291983e52a9dbc.mailgun.org", //Domain name
+					"Sender@domain.com", //Domain name
 					"Welcome New User", //subject line
 					UseFormat, //message body
 					null, //optional attachment
-					true, false, true); //system flags newsletter, debug, and Alias 
+					true, false, true); //system flags for newsletter, debug, and Alias 
 		} catch (MessagingException e) { e.printStackTrace();}
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm()); //Auto login after successful save
 
